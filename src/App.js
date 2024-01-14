@@ -13,7 +13,7 @@ const App = () => {
       }
     }) 
       .then((response) => {
-        console.log(response);
+        setBeMessage(response.data);
       })
       .catch((response) => {
         console.log(response);
