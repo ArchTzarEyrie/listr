@@ -4,21 +4,35 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const App = () => {
-  const [beMessage, setBeMessage] = useState('no response');
+  // const [beMessage, setBeMessage] = useState('no response');
 
-  useEffect(() => {
-    axios.get(`http://localhost:3030/test`, {
+  // useEffect(() => {
+  //   axios.get(`http://localhost:3030/test`, {
+  //     headers: {
+  //       'Access-Control-Allow-Origin': '*'
+  //     }
+  //   }) 
+  //     .then((response) => {
+  //       setBeMessage(response.data);
+  //     })
+  //     .catch((response) => {
+  //       console.log(response);
+  //     });
+  // }, []);
+
+  const onCreate = () => {
+    axios.post('http://localhost:3030/createList', {
       headers: {
         'Access-Control-Allow-Origin': '*'
       }
-    }) 
-      .then((response) => {
-        setBeMessage(response.data);
-      })
-      .catch((response) => {
-        console.log(response);
-      });
-  }, []);
+    })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((response) => {
+      console.log(response);
+    });
+  }
 
   return (
     <div className="App">
@@ -33,9 +47,9 @@ const App = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {beMessage}
         </a>
       </header>
+      <button onClick={onCreate}>Create List</button>
     </div>
   );
 }
