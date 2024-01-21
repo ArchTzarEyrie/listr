@@ -1,43 +1,11 @@
-import logo from './logo.svg';
 import './App.scss';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import CreateListForm from './components/CreateListForm';
 
 const App = () => {
-  // const [beMessage, setBeMessage] = useState('no response');
-
-  // useEffect(() => {
-  //   axios.get(`http://localhost:3030/test`, {
-  //     headers: {
-  //       'Access-Control-Allow-Origin': '*'
-  //     }
-  //   }) 
-  //     .then((response) => {
-  //       setBeMessage(response.data);
-  //     })
-  //     .catch((response) => {
-  //       console.log(response);
-  //     });
-  // }, []);
-
-  const onCreate = () => {
-    axios.post('http://localhost:3030/createList', {
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
-    })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((response) => {
-      console.log(response);
-    });
-  }
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -49,7 +17,7 @@ const App = () => {
         >
         </a>
       </header>
-      <button onClick={onCreate}>Create List</button>
+      <CreateListForm />
     </div>
   );
 }
