@@ -1,5 +1,6 @@
 import './App.scss';
-import CreateListForm from './components/CreateListForm';
+import CreateList from './screens/CreateList';
+import Home from './screens/Home';
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 
 const App = () => {
@@ -8,8 +9,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="create-list" element={<CreateList />} />
 
         {/* Using path="*"" means "match anything", so this route
           acts like a catch-all for URLs that we don't have explicit
@@ -31,13 +31,7 @@ function Layout() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/nothing-here">Nothing Here</Link>
+            <Link to="/create-list">Create List</Link>
           </li>
         </ul>
       </nav>
@@ -48,30 +42,6 @@ function Layout() {
           so you can think about this <Outlet> as a placeholder for
           the child routes we defined above. */}
       <Outlet />
-    </div>
-  );
-}
-
-function Home() {
-  return (
-    <div>
-      <h2>Home</h2>
-    </div>
-  );
-}
-
-function About() {
-  return (
-    <div>
-      <h2>About</h2>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
     </div>
   );
 }
