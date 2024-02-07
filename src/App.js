@@ -1,7 +1,8 @@
-import './App.scss';
+import './styles/Nav.scss';
 import CreateList from './screens/CreateList';
 import Home from './screens/Home';
 import { Routes, Route, Outlet, Link } from "react-router-dom";
+import ProfileHome from './screens/ProfileHome';
 
 const App = () => {
 
@@ -10,6 +11,7 @@ const App = () => {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="create-list" element={<CreateList />} />
+        <Route path="profile-home" element={<ProfileHome />} />
 
         {/* Using path="*"" means "match anything", so this route
           acts like a catch-all for URLs that we don't have explicit
@@ -25,13 +27,17 @@ function Layout() {
     <div>
       {/* A "layout route" is a good place to put markup you want to
           share across all the pages on your site, like navigation. */}
-      <nav>
-        <ul>
+      <nav className='nav-container'>
+        <ul className='flex-container nav-items'>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">Listr</Link>
           </li>
+          <div className='nav-spacer'/>
           <li>
             <Link to="/create-list">Create List</Link>
+          </li>
+          <li>
+            <Link to="/profile-home">Profile Home</Link>
           </li>
         </ul>
       </nav>
