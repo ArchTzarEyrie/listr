@@ -1,0 +1,16 @@
+@import "bootstrap/scss/bootstrap";
+
+.profile-home-container {
+    height: 100%;
+    max-width: 85%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-home-content {
+    background-color: #DDD;
+    flex: 1;
+    margin-right: 5%;
+    margin-left: 5%;
+}
