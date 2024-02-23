@@ -3,6 +3,7 @@ import CreateList from './screens/CreateList';
 import Home from './screens/Home';
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 import ProfileHome from './screens/ProfileHome';
+import ListView from './screens/ListView';
 
 const App = () => {
 
@@ -12,6 +13,7 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="create-list" element={<CreateList />} />
         <Route path="profile-home" element={<ProfileHome />} />
+        <Route path="list-view" element={<ListView />} />
 
         {/* Using path="*"" means "match anything", so this route
           acts like a catch-all for URLs that we don't have explicit
