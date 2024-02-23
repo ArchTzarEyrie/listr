@@ -1,4 +1,6 @@
 import '../styles/ProfileHome.scss';
+import '../components/ListContainer';
+import ListContainer from '../components/ListContainer';
 
 const ProfileHome = () => {
 
@@ -6,7 +8,13 @@ const ProfileHome = () => {
         <div className='profile-home-container'>
            <h2>Hi ACC NAME</h2>
            <div className='profile-home-content'>
-            <p>Test Value</p>
+            <ListContainer 
+              className="profile-home-my-lists" 
+              title="My Lists" 
+            />
+            <ListContainer 
+              title="Shared with me" 
+            />
            </div>
         </div>
     );
