@@ -1,11 +1,14 @@
 import '../styles/Entry.scss';
 
-const Entry = ({content}) => {
+const Entry = ({content, link}) => {
 
     return (
-        <div className='entry'>
-            <p>{`${content}`}</p>
-        </div>
+        <a href={link}>
+            <div className='entry'>
+                <p>{`${content}`}</p>
+            </div>
+        </a>
+        
     );
 }
 
