@@ -4,6 +4,23 @@ import Entry from "../components/Entry";
 import '../styles/ListView.scss';
 import axios from 'axios';
 
+const getDeleteEntry = (setIsDirty) => {
+    return (id) => {
+    axios.delete(`http://localhost:3030/entries/${id}`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        }
+    })
+    .then(response => {
+        if (response.data.errorMessage) {
+            console.log(`SERVER ERROR: ${response.data.errorMessage}`);
+        } else {
+            setIsDirty(true);
+        }
+    })
+    .catch(err => console.log(`ERROR: ${err}`));
+}}
+
 const getEditEntry = (setIsDirty, setEditId) => {
     return (id, content, link) => {
     axios.put(`http://localhost:3030/entries/update/${id}`, {
@@ -62,6 +79,7 @@ const ListView = () => {
     const [isDirty, setIsDirty] = useState(true);
     const [editId, setEditId] = useState(-1);
     const editEntry = getEditEntry(setIsDirty, setEditId);
+    const deleteEntry = getDeleteEntry(setIsDirty);
 
     useEffect(() => {
         if (isDirty) {
@@ -87,6 +105,7 @@ const ListView = () => {
                           setEditId={setEditId}
                           id={entry.id}
                           editEntry={editEntry}
+                          deleteEntry={deleteEntry}
                         />
                     );
                 })}

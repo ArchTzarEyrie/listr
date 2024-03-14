@@ -1,34 +1,58 @@
 import '../styles/Entry.scss';
 import { useState } from "react";
 
-const Entry = ({content, link, isEditing, setEditId, id, editEntry}) => {
-
-    const [inputValue, setInputValue] = useState(content);
+const Entry = (
+    {
+        content, 
+        link, 
+        isEditing, 
+        setEditId, 
+        id, 
+        editEntry,
+        deleteEntry
+    }
+) => {
+    const [contentValue, setContentValue] = useState(content);
+    const [linkValue, setLinkValue] = useState(link);
 
     return (
         <div className='entry'>
             {isEditing ?
                 <div className='flex'>
-                    <input 
+                    <input
                         type="text" 
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
+                        value={contentValue}
+                        onChange={(e) => setContentValue(e.target.value)}
+                    />
+                    <label htmlFor="link">Link</label>
+                    <input
+                        id="link"
+                        name="link"
+                        type="text" 
+                        value={linkValue}
+                        onChange={(e) => setLinkValue(e.target.value)}
                     />
                     <button 
                         className={'entry-save-button'} 
-                        onClick={() => editEntry(id, inputValue, link)}
+                        onClick={() => editEntry(id, contentValue, linkValue)}
                     >
                         Save
                     </button>
                 </div>
             :
                 <div className='flex'>
-                    <p href={link}>{`${content}`}</p>
+                    <a href={link}>{`${content}`}</a>
                     <button 
                         className='entry-edit-button'
                         onClick={() => setEditId(id)}
                     >
                         Edit
+                    </button>
+                    <button 
+                        className='entry-delete-button'
+                        onClick={() => deleteEntry(id)}
+                    >
+                        Delete
                     </button>
                 </div>
             }
