@@ -1,16 +1,14 @@
 import '../styles/ListContainer.scss';
 import ListEntry from './ListEntry';
 
-const entriesStub = ['tv', 'movies'];
-
-const ListContainer = ({title}) => {
+const ListContainer = ({title, lists = []}) => {
 
     return (
         <div>
             <h2>{`${title}`}</h2>
-            {entriesStub.map(entry => {
+            {lists.map(list => {
                 return (
-                    <ListEntry content={entry} />
+                    <ListEntry content={list.name} />
                 );
             })}
         </div>
