@@ -4,6 +4,23 @@ import Entry from "../components/Entry";
 import '../styles/ListView.scss';
 import axios from 'axios';
 
+const getEditEntry = (setIsDirty, setEditId) => {
+    return (id, content, link) => {
+    axios.put(`http://localhost:3030/entries/update/${id}`, {
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        },
+        content,
+        link
+    })
+    .then(response => {
+        console.log('updating');
+        console.log(response);
+        setIsDirty(true);
+        setEditId(-1);
+    })
+    .catch(err => console.log(`ERROR: ${err}`));
+}}
 
 const fetchEntries = (setEntries) => {
     axios.get('http://localhost:3030/entries/10', {
@@ -19,7 +36,7 @@ const fetchEntries = (setEntries) => {
     .catch(err => console.log(`ERROR: ${err}`));
 }
 
-const createNewEntry = (setIsDirty) => {
+const createNewEntry = (setIsDirty, setEditId) => {
     axios.post('http://localhost:3030/entries/create', {
         headers: {
             'Access-Control-Allow-Origin': '*'
@@ -33,6 +50,7 @@ const createNewEntry = (setIsDirty) => {
         console.log('creating new entry');
         console.log(response);
         setIsDirty(true);
+        setEditId(response.data.insertId);
     })
     .catch(response => {
         console.log(`ERROR: ${response}`);
@@ -42,6 +60,8 @@ const createNewEntry = (setIsDirty) => {
 const ListView = () => {
     const [entries, setEntries] = useState([]);
     const [isDirty, setIsDirty] = useState(true);
+    const [editId, setEditId] = useState(-1);
+    const editEntry = getEditEntry(setIsDirty, setEditId);
 
     useEffect(() => {
         if (isDirty) {
@@ -63,11 +83,15 @@ const ListView = () => {
                           key={entry.id} 
                           content={entry.content} 
                           link={entry.link} 
+                          isEditing={editId === entry.id}
+                          setEditId={setEditId}
+                          id={entry.id}
+                          editEntry={editEntry}
                         />
                     );
                 })}
             </div>
-            <button onClick={() => createNewEntry(setIsDirty)}>+ Add entry</button>
+            <button onClick={() => createNewEntry(setIsDirty, setEditId)}>+ Add entry</button>
         </div>
     );
 }
