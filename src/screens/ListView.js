@@ -39,8 +39,8 @@ const getEditEntry = (setIsDirty, setEditId) => {
     .catch(err => console.log(`ERROR: ${err}`));
 }}
 
-const fetchEntries = (setEntries) => {
-    axios.get('http://localhost:3030/entries/10', {
+const fetchEntries = (setEntries, listId, setListName) => {
+    axios.get(`http://localhost:3030/entries/${listId}`, {
         headers: {
             'Access-Control-Allow-Origin': '*'
         }
@@ -48,19 +48,20 @@ const fetchEntries = (setEntries) => {
     .then(response => {
         console.log('fetching');
         console.log(response);
-        setEntries(response.data)
+        setEntries(response.data.rows);
+        setListName(response.data.listName);
     })
     .catch(err => console.log(`ERROR: ${err}`));
 }
 
-const createNewEntry = (setIsDirty, setEditId) => {
+const createNewEntry = (setIsDirty, setEditId, listId) => {
     axios.post('http://localhost:3030/entries/create', {
         headers: {
             'Access-Control-Allow-Origin': '*'
         },
         content: "New Entry",
         creator: 1,
-        listId: 10,
+        listId: listId,
         link: "https://duck.com"
     })
     .then(response => {
@@ -78,22 +79,24 @@ const ListView = () => {
     const [entries, setEntries] = useState([]);
     const [isDirty, setIsDirty] = useState(true);
     const [editId, setEditId] = useState(-1);
+    const [listName, setListName] = useState('DEFAULT LIST NAME');
+    const listId = document.location.pathname.split('/').pop();
     const editEntry = getEditEntry(setIsDirty, setEditId);
     const deleteEntry = getDeleteEntry(setIsDirty);
 
     useEffect(() => {
         if (isDirty) {
-          fetchEntries(setEntries);
+          fetchEntries(setEntries, listId, setListName);
           setIsDirty(false);
         }
-    }, [isDirty, setEntries]);
+    }, [isDirty, setEntries, setListName]);
 
     return (
         <div>
             <Link to={'/profile-home'}>
                 Back
             </Link>
-            <h2>LIST NAME</h2>
+            <h2>{listName}</h2>
             <div>
                 {entries.map(entry => {
                     return (
@@ -110,7 +113,7 @@ const ListView = () => {
                     );
                 })}
             </div>
-            <button onClick={() => createNewEntry(setIsDirty, setEditId)}>+ Add entry</button>
+            <button onClick={() => createNewEntry(setIsDirty, setEditId, listId)}>+ Add entry</button>
         </div>
     );
 }

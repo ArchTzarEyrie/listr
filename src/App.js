@@ -13,7 +13,7 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="create-list" element={<CreateList />} />
         <Route path="profile-home" element={<ProfileHome />} />
-        <Route path="list-view" element={<ListView />} />
+        <Route path="list-view/*" element={<ListView />} />
 
         {/* Using path="*"" means "match anything", so this route
           acts like a catch-all for URLs that we don't have explicit

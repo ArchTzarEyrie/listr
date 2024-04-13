@@ -8,7 +8,7 @@ const ListContainer = ({title, lists = []}) => {
             <h2>{`${title}`}</h2>
             {lists.map(list => {
                 return (
-                    <ListEntry content={list.name} />
+                    <ListEntry content={list.name} listId={list.id}/>
                 );
             })}
         </div>
